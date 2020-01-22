@@ -6,21 +6,24 @@ using UnityEngine;
 [RequireComponent(typeof(TankData))]
 [RequireComponent(typeof(TankMove))]
 
-public class TestController : MonoBehaviour
+public class AIControl: MonoBehaviour
 {
     private TankMove motor;
     private TankData data;
+    private TankAttack attack;
 
     void Start()
     {
         motor = gameObject.GetComponent<TankMove>();
         data = gameObject.GetComponent<TankData>();
+        attack = gameObject.GetComponent<TankAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        motor.Move(data.forwardSpeed);
-        motor.Rotate(data.rotateSpeed);
+        motor.AIMove(data.forwardSpeed);
+        motor.AIRotate(data.rotateSpeed);
+        attack.FireCannon();
     }
 }

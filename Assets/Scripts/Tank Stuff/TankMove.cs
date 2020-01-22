@@ -26,9 +26,27 @@ public class TankMove : MonoBehaviour
         characterController.SimpleMove(speedVector);
     }
 
+    //Creating a new function for AI movement until I clean up
+    //code and simplify everything.
+    public void AIMove(float speed)
+    {
+        Vector3 speedVector = tf.forward * speed;
+
+        characterController.SimpleMove(speedVector);
+    }
+
     //Referencing the Function "Rotate" should originate from
     //InputControl or AIControl.  As it stands anyway.
     public void Rotate(float speed)
+    {
+        Vector3 rotateVector = Vector3.up * speed * Time.deltaTime;
+
+        tf.Rotate(rotateVector, relativeTo: Space.Self);
+    }
+
+    //Same thing with the AI rotation, until I clean up the code
+    //and simplifying things later.
+    public void AIRotate(float speed)
     {
         Vector3 rotateVector = Vector3.up * speed * Time.deltaTime;
 

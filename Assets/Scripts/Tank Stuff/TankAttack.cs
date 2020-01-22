@@ -41,7 +41,7 @@ public class TankAttack : MonoBehaviour
     {
         if ((tankData.tankCannonCoolD >= tankData.tankCannonFireR) && (tankData.tankCannonAmmoCurrent > 0))
         {
-            GameObject cannonBallCopy = Instantiate(CannonBall, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as GameObject;
+            GameObject cannonBallCopy = Instantiate(CannonBall, new Vector3(transform.position.x +1, transform.position.y, transform.position.z), transform.rotation) as GameObject;
             CannonBallControl cannonBallScript;
             cannonBallScript = cannonBallCopy.GetComponent<CannonBallControl>();
             cannonBallScript.shooter = this.gameObject;

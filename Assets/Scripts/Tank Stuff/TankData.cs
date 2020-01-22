@@ -45,6 +45,7 @@ public class TankData : MonoBehaviour
     //in order to create a leaderboard and other objects.
     public int lives;
     public int tankScore;
+    public int scoreValue;
 
     void Awake()
     {
@@ -53,10 +54,6 @@ public class TankData : MonoBehaviour
         attack = GetComponent<TankAttack>();
         life = GetComponent<TankLife>();
 
-        //Removed Reverse Speed and just divided the speed
-        //by 3 when moving backwards, I would have to completely
-        //change Move and IController to keep and use the reverse
-        //variable.
         forwardSpeed = 5;
         rotateSpeed = 100;
 
@@ -75,15 +72,15 @@ public class TankData : MonoBehaviour
 
         lives = 3;
         tankScore = 0;
+        scoreValue = 1;
     }
 
     void Update()
     {
-        //moved this out of TankAttack script since
-        //it was referenced here anyway, working again.
+        //These variables control how the tanks manage "reloading",
+        //the cooldowns are what need to be changed in order to 
+        //change firing rate of each weapon.
         tankCannonCoolD = tankCannonCoolD + Time.deltaTime;
         tankGunCoolD = tankGunCoolD + Time.deltaTime;
     }
-
-
 }
