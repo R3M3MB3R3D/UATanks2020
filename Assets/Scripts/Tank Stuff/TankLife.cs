@@ -10,6 +10,7 @@ public class TankLife : MonoBehaviour
 {
     public TankData tankData;
 
+
     void Awake()
     {
         tankData = this.gameObject.GetComponent<TankData>();
@@ -25,7 +26,7 @@ public class TankLife : MonoBehaviour
         }
 
         //This is so that when the tank reaches 0 health it is
-        //destroyed instead of remaining and causing other problems.
+        //destroyed.
         if (tankData.tankCurrentLife <= 0)
         {
             Destroy(this.gameObject);

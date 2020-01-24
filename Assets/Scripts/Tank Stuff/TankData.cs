@@ -57,13 +57,13 @@ public class TankData : MonoBehaviour
         forwardSpeed = 5;
         rotateSpeed = 100;
 
-        tankMaxLife = 100;
+        tankMaxLife = 150;
         tankCurrentLife = 100;
-        tankArmor = 5;
+        tankArmor = 0;
 
-        tankGunDamage = 6;
+        tankGunDamage = 10;
         tankGunAmmoMax = 100;
-        tankGunAmmoCurrent = 100;
+        tankGunAmmoCurrent = 50;
         tankCannonDamage = 40;
         tankCannonAmmoMax = 10;
         tankCannonAmmoCurrent = 10;

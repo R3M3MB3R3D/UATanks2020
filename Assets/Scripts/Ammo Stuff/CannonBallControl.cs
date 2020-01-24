@@ -8,7 +8,7 @@ public class CannonBallControl : MonoBehaviour
     //prefab, Shooter is automatically assigned from the 
     //TankAttack script and is necessary to calculate
     //damage dealt to target gameobjects.
-    public int timer = 2;
+    public int timer = 4;
     public int force = 2000;
     public GameObject shooter;
 
