@@ -34,7 +34,7 @@ public class CannonBallControl : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        //if collision target isnt shooter and isnt environment.
+        //if collision target isnt shooter and isnt environment,
         if (shooter != c.gameObject && !c.gameObject.tag.Equals("Environment"))
         {
             //destroys the CannonBall
