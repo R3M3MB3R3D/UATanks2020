@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TankMove : MonoBehaviour
 {
+
     //Creating CharacterController and Transform components,
     //The Transform is a small optimization of code for the functions.
     private CharacterController characterController;
@@ -26,15 +27,6 @@ public class TankMove : MonoBehaviour
         characterController.SimpleMove(speedVector);
     }
 
-    //Creating a new function for AI movement until I clean up
-    //code and simplify everything.
-    public void AIMove(float speed)
-    {
-        Vector3 speedVector = tf.forward * speed;
-
-        characterController.SimpleMove(speedVector);
-    }
-
     //Referencing the Function "Rotate" should originate from
     //InputControl or AIControl.  As it stands anyway.
     public void Rotate(float speed)
@@ -44,12 +36,19 @@ public class TankMove : MonoBehaviour
         tf.Rotate(rotateVector, relativeTo: Space.Self);
     }
 
-    //Same thing with the AI rotation, until I clean up the code
-    //and simplifying things later.
-    public void AIRotate(float speed)
+    public bool RotateTowards(Vector3 target, float speed)
     {
-        Vector3 rotateVector = Vector3.up * speed * Time.deltaTime;
+        //creating a variable to see the difference between you and your target.
+        Vector3 vectorToTarget = target - tf.position;
+        
+        //Quaternions allow for smoother actions, especially from AI targets.
+        Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
 
-        tf.Rotate(rotateVector, relativeTo: Space.Self);
+        if (targetRotation == tf.rotation)
+        {
+            return false;
+        }
+        tf.rotation = Quaternion.RotateTowards(tf.rotation, targetRotation, speed * Time.deltaTime);
+        return true;
     }
 }
