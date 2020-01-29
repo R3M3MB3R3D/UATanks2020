@@ -6,20 +6,27 @@ using UnityEngine;
 [RequireComponent(typeof(TankData))]
 [RequireComponent(typeof(TankMove))]
 
-public class AIControl: MonoBehaviour
+public class AIControl : MonoBehaviour
 {
-    //creating a list of positions for enemy tanks to go to.
-    public Transform[] waypoints;
-
-    //attaching scripts together 
+    //attaching scripts together with their components.
     private TankMove motor;
     private TankData data;
     private TankAttack attack;
     private Transform tf;
 
-    //creating a way to track tanks in between waypoints
-    public  int currentWaypoint = 0;
+    //creating a list of positions for enemy tanks to go to.
+    public Transform[] waypoints;
+
+    //creating a way to track tanks in between waypoints and which direction
+    //they are moving between them.
+    public int currentWaypoint = 0;
+    public bool patrolForward = true;
     public float closeEnough = 1.0f;
+
+    public enum LoopType { Stop, Loop, PingPong, Error };
+    public LoopType loopType;
+
+
 
     void Start()
     {
@@ -39,10 +46,57 @@ public class AIControl: MonoBehaviour
         {
             motor.Move(data.forwardSpeed);
         }
+
+        //if (Vector3.SqrMagnitude(waypoints[currentWaypoint].position - tf.position) <= (closeEnough * closeEnough))
+        //Above is supposedly a better way to do it, but this doesn't work with what I have currently.
         if (Vector3.Distance(transform.position, waypoints[currentWaypoint].position) < closeEnough)
-        //if (Vector3.SqrMagnitude(waypoints[currentWaypoint].position - tf.position) < (closeEnough * closeEnough))
         {
-            currentWaypoint++;
+            //creating a switch case to move between different types of patrol to make it less predictable.
+            switch (loopType)
+            {
+                case LoopType.Stop:
+                    if (currentWaypoint < waypoints.Length - 1)
+                    {
+                        currentWaypoint++;
+                    }
+                    break;
+                case LoopType.Loop:
+                    if (currentWaypoint < waypoints.Length - 1)
+                    {
+                        currentWaypoint++;
+                    }
+                    else
+                    {
+                        currentWaypoint = 0;
+                    }
+                    break;
+                case LoopType.PingPong:
+                    if (patrolForward)
+                    {
+                        if (currentWaypoint < waypoints.Length - 1)
+                        {
+                            currentWaypoint++;
+                        }
+                        else
+                        {
+                            patrolForward = false;
+                            currentWaypoint--;
+                        }
+                    }
+                    else
+                    {
+                        if (currentWaypoint > 0)
+                        {
+                            currentWaypoint--;
+                        }
+                        else
+                        {
+                            patrolForward = true;
+                            currentWaypoint++;
+                        }
+                    }
+                    break;
+            }
         }
     }
 }

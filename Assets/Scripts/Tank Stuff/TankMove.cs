@@ -44,6 +44,7 @@ public class TankMove : MonoBehaviour
         //Quaternions allow for smoother actions, especially from AI targets.
         Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
 
+        //if our rotation is equal to our target's, then we dont need to rotate towards anymore.
         if (targetRotation == tf.rotation)
         {
             return false;
