@@ -37,10 +37,10 @@ public class GunBallControl : MonoBehaviour
         //if collision target isnt shooter and isnt environment.
         if (shooter != c.gameObject & !c.gameObject.tag.Equals("Environment"))
         {
-            //destroys the GunBall
-            Destroy(this.gameObject);
             //gets target health, and deals shooters damage values.
             c.gameObject.GetComponent<TankData>().tankCurrentLife -= shooter.GetComponent<TankData>().tankGunDamage;
+            //destroys the GunBall
+            Destroy(this.gameObject);
         }
     }
 }

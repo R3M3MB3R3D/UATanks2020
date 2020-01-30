@@ -22,6 +22,8 @@ public class TankData : MonoBehaviour
 
     //Damage, ammo, tracking current ammo, and cooldown
     //for fire rates in cannon and gun fire function.
+    public bool weaponFire = true;
+
     public float tankGunDamage;
     public int tankGunAmmoMax;
     public float tankGunAmmoCurrent;

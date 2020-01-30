@@ -33,14 +33,13 @@ public class CannonBallControl : MonoBehaviour
             //destroys the Cannonball
             Destroy(this.gameObject);
         }
-
         //if collision target isnt shooter and isnt environment,
-        if (shooter != c.gameObject && !c.gameObject.tag.Equals("Environment"))
+        else if (shooter != c.gameObject && !c.gameObject.tag.Equals("Environment"))
         {
-            //destroys the CannonBall
-            Destroy(this.gameObject);
             //gets target health, and deals shooters damage values.
             c.gameObject.GetComponent<TankData>().tankCurrentLife -= shooter.GetComponent<TankData>().tankCannonDamage;
+            //destroys the CannonBall
+            Destroy(this.gameObject);
         }
     }
 }

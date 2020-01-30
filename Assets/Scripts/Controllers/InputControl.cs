@@ -42,13 +42,57 @@ public class InputControl : MonoBehaviour
                 {
                     move.Rotate(-data.rotateSpeed);
                 }
-                if (Input.GetKey(KeyCode.Q))
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    attack.FireCannon();
+                    if (data.weaponFire == true)
+                    {
+                        attack.FireCannon();
+                    }
+                    else
+                    {
+                        attack.FireGun();
+                    }
                 }
-                if (Input.GetKey(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    attack.FireGun();
+                    data.weaponFire = !data.weaponFire;
+                }
+                break;
+        }
+
+        switch (input)
+        {
+            case InputScheme.IJKL:
+                if (Input.GetKey(KeyCode.I))
+                {
+                    move.Move(data.forwardSpeed);
+                }
+                if (Input.GetKey(KeyCode.K))
+                {
+                    move.Move(-data.forwardSpeed);
+                }
+                if (Input.GetKey(KeyCode.J))
+                {
+                    move.Rotate(data.rotateSpeed);
+                }
+                if (Input.GetKey(KeyCode.L))
+                {
+                    move.Rotate(-data.rotateSpeed);
+                }
+                if (Input.GetKeyDown(KeyCode.U))
+                {
+                    if (data.weaponFire == true)
+                    {
+                        attack.FireCannon();
+                    }
+                    else
+                    {
+                        attack.FireGun();
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.O))
+                {
+                    data.weaponFire = !data.weaponFire;
                 }
                 break;
         }
