@@ -7,9 +7,6 @@ public class Patrol : MonoBehaviour
     private TankData data;
     private TankMove move;
 
-    //creating a list of positions for enemy tanks to go to.
-    public Transform[] waypoints;
-
     //creating a way to track tanks in between waypoints and which direction
     //they are moving between them.
     public int currentWaypoint = 0;
@@ -18,6 +15,9 @@ public class Patrol : MonoBehaviour
 
     public enum LoopType { Stop, Loop, PingPong, Error };
     public LoopType loopType;
+
+    //creating a list of positions for enemy tanks to go to.
+    public Transform[] waypoints;
 
     private void Awake()
     {
