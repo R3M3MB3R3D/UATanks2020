@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Since all the 'data' concerning the gameObject comes from
-//TankData and all 'functions' for that 'data' come from other
-//scripts, we make the functions require the data.
+//TankData and all 'functions' for that 'data' come from
+//other scripts, we make the functions require the data.
 [RequireComponent(typeof(TankData))]
 
 public class TankAttack : MonoBehaviour
 {
-    public GameObject CannonBall;
-    public GameObject GunBall;
+    //Creating variables to attach scripts and objects.
     public TankData tankData;
+    public GameObject GunBall;
+    public GameObject CannonBall;
 
     private void Awake()
     {
+        //Attaching scripts and objects.
         tankData = this.gameObject.GetComponent<TankData>();
+        //We attach GunBall and CannonBall later.
     }
 
     void Update()
@@ -33,35 +36,43 @@ public class TankAttack : MonoBehaviour
         }
     }
 
-    //created Variable for CBControl as CBScript to link variable to Cannonball
-    //set function to create copies of the prefab and set shooter variable inside of CBControl
-    //this SHOULD let the script know not to destroy the object firing the prefab.
-    //at least, from CBControl when everything is set up properly.
     public void FireCannon()
     {
+        //If we have finished "reloading" *and* If we have more than 1 CannonBall according to TankData.
         if ((tankData.tankCannonCoolD >= tankData.tankCannonFireR) && (tankData.tankCannonAmmoCurrent > 0))
         {
+            //Create a CannonBall, on our position, as an object.
             GameObject cannonBallCopy = Instantiate(CannonBall, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as GameObject;
+            //Create a variable here that we can attach to the newly instantiated CannonBall.
             CannonBallControl cannonBallScript;
+            //attach that new script, object, and variable together.
             cannonBallScript = cannonBallCopy.GetComponent<CannonBallControl>();
+            //Set 'shooter' inside of the new object to be this object.
             cannonBallScript.shooter = this.gameObject;
+            //Begin "reloading".
             tankData.tankCannonCoolD = 0;
+            //Account for the fired CannonBall.
             tankData.tankCannonAmmoCurrent -= 1;
         }
     }
 
     public void FireGun()
     {
-        if ((tankData.tankGunCoolD > .25) && (tankData.tankGunAmmoCurrent > 0))
+        //If we have finished "reloading" *and* we have more than 1 GunBall according to TankData.
+        if ((tankData.tankGunCoolD >= tankData.tankGunFireR) && (tankData.tankGunAmmoCurrent > 0))
         {
+            //Create a GunBall, on our position, as an object.
             GameObject gunBallCopy = Instantiate(GunBall, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation) as GameObject;
+            //create a variable here that we can attach to the newly instantiated GunBall.
             GunBallControl gunBallScript;
+            //Attach that new script, object, and variable together.
             gunBallScript = gunBallCopy.GetComponent<GunBallControl>();
+            //Set shooter inside of the new object to be this object.
             gunBallScript.shooter = this.gameObject;
+            //Begin "reloading".
             tankData.tankGunCoolD = 0;
+            //Account for the fired GunBall
             tankData.tankGunAmmoCurrent -= 1;
-            //we 'can' take the "this." out of the code but I prefer to keep it in
-            //because we cant take "target." out when referrencing other scripts and objects.
         }
     }
 }

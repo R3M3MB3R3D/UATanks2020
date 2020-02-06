@@ -1,32 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(TankData))]
-[RequireComponent(typeof(TankMove))]
 
 public class ChaseFlee: MonoBehaviour
 {
-    public enum AttackMode { Chase, Flee, Error }
-    public AttackMode attackMode;
+    //Creating variables to attach to scripts and objects.
+    public TankData data;
+    public TankMove move;
+    public Transform tf;
+    public AIControl control;
 
+    //Creating variables we will need for this function.
     public Transform target;
     public float fleeDistance = 1.0f;
 
-    private TankData data;
-    private TankMove move;
-    private Transform tf;
+    //Creating lists we will need for this function.
+    public enum AttackMode { None, Chase, Flee, Error }
+    public AttackMode attackMode;
 
-    void Start()
+    void Awake()
     {
+        //Attaching scripts and objects.
         data = GetComponent<TankData>();
         move = GetComponent<TankMove>();
         tf = GetComponent<Transform>();
+        control = GetComponent<AIControl>();
     }
 
     void Update()
     {
         switch (attackMode)
         {
+            case AttackMode.None:
+                //Do Nothing.
+                break;
             case AttackMode.Chase:
                 //rotate towards
                 move.RotateTowards(target.position, data.rotateSpeed);
@@ -34,14 +41,19 @@ public class ChaseFlee: MonoBehaviour
                 move.Move(data.forwardSpeed);
                 break;
             case AttackMode.Flee:
-                //Ok so this is a line by line, step by step on how to
-                //calculate how to run away from something according to AI
+                //Get our target position by subtracting it from our own.
                 Vector3 vectorToTarget = target.position - tf.position;
+                //Get the opposite direction by multiplying by negative one.
                 Vector3 vectorAwayFromTarget = -1 * vectorToTarget;
+                //Normalize the answer.
                 vectorAwayFromTarget.Normalize();
+                //AwayFromTarget become fleeDistance.
                 vectorAwayFromTarget *= fleeDistance;
+                //Determine which direction is "opposite" of our target.
                 Vector3 fleePosition = vectorAwayFromTarget + tf.position;
+                //Rotate function called.  Rotate away from target.
                 move.RotateTowards(fleePosition, data.rotateSpeed);
+                //Move function called.  Move away from target.
                 move.Move(data.forwardSpeed);
                 break;
             case AttackMode.Error:

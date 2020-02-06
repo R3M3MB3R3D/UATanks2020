@@ -1,35 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(TankData))]
-[RequireComponent(typeof(TankMove))]
 
 public class Obstacles : MonoBehaviour
 {
-    //creating the variables we will attach to
-    //this script and therefore the object.
-    private TankData data;
-    private TankMove move;
-    private Transform tf;
+    //Creating variables to attach to scripts and objects.
+    public TankData data;
+    public TankMove move;
+    public Transform tf;
+    public AIControl control;
 
-    //creating the variables we will need
-    //to create obstacle avoidance.
+    //Creating variables we will need for this function.
     private float exitTime;
     public Transform target;
     public float avoidTime = 2.0f;
 
-    //Creating a toggle for which avoidance state
-    //the AI is currently in, and will help dictate
-    //how it avoids obstacles.
-    public enum AvoidStage { None, Rotate, Move, Error };
+    //Creating lists we will need for this function.
+    public enum AvoidStage { None, Rotate, Forward, Error };
     public AvoidStage avoidStage;
 
     void Awake()
     {
-        //attaching scripts to objects
+        //Attaching scripts and objects
         data = GetComponent<TankData>();
         move = GetComponent<TankMove>();
         tf = GetComponent<Transform>();
+        control = GetComponent<AIControl>();
     }
 
     void Update()
@@ -37,30 +33,43 @@ public class Obstacles : MonoBehaviour
         switch (avoidStage)
         {
             case AvoidStage.None:
-
+                //Do Nothing.
                 break;
             case AvoidStage.Rotate:
-                
-                break;
-            case AvoidStage.Move:
-                //if (CanMove(data.forwardSpeed))
+                if (target != null)
                 {
-                    exitTime -= Time.deltaTime;
-                    move.Move(data.forwardSpeed);
-                    if (exitTime <= 0.0f)
-                    {
-
-                    }
+                    move.RotateTowards(Vector3.right, data.rotateSpeed);  
                 }
-
+                if (CanMove(data.forwardSpeed))
+                {
+                    avoidStage = AvoidStage.Forward;
+                }
+                break;
+            case AvoidStage.Forward:
+                move.Move(data.forwardSpeed);
+                if (CanMove(data.forwardSpeed))
+                {
+                    avoidStage = AvoidStage.None;
+                }
+                else
+                {
+                    avoidStage = AvoidStage.Rotate;
+                }
                 break;
             case AvoidStage.Error:
                 Debug.Log("Obstacle Avoidance failed or is terminated");
-                break; 
+                break;
         }
     }
 
-    void CanMove()
+    bool CanMove(float speed)
     {
+        RaycastHit hit;
+        if (Physics.Raycast(tf.position, tf.forward, out hit, speed))
+        {
+            target = hit.transform;
+            return false;
+        }
+        return true;
     }
 }

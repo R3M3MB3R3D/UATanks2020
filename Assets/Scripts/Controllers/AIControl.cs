@@ -1,27 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Ensuring that our code works by making sure everything that works
-//together are always together.
+//Since all the 'data' concerning the gameObject comes from
+//TankData and all 'functions' for that 'data' come from
+//other scripts, we make the functions require the data.
 [RequireComponent(typeof(TankData))]
 [RequireComponent(typeof(TankMove))]
 [RequireComponent(typeof(TankAttack))]
-[RequireComponent(typeof(ChaseFlee))]
-[RequireComponent(typeof(Patrol))]
 
 public class AIControl : MonoBehaviour
 {
-    //attaching scripts together with their components.
-    private TankMove motor;
-    private TankData data;
-    private TankAttack attack;
-    private Transform tf;
-    private ChaseFlee chaseFlee;
-    private Patrol patrol;
+    //Creating variables to attach to scripts and objects.
+    public TankMove move;
+    public TankData data;
+    public TankAttack attack;
+    public Transform tf;
 
-    void Start()
+    void Awake()
     {
-        motor = gameObject.GetComponent<TankMove>();
+        //Attaching scripts and objects.
+        move = gameObject.GetComponent<TankMove>();
         data = gameObject.GetComponent<TankData>();
         attack = gameObject.GetComponent<TankAttack>();
     }

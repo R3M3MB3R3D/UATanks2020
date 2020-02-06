@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Making all other common tank scripts required
+//considering that they all have functions that
+//take data off of this one.
+[RequireComponent(typeof(TankAttack))]
+[RequireComponent(typeof(TankLife))]
+[RequireComponent(typeof(TankMove))]
 
 public class TankData : MonoBehaviour
 {
     //These scripts (and components) make use of the tanks' Data.
     //This script will be the one designers use to edit Data.
+    //Here is where we ensure that the scripts attach to the object.
     public Transform tf;
     public TankMove move;
     public TankAttack attack;
@@ -16,12 +23,15 @@ public class TankData : MonoBehaviour
     public float rotateSpeed = 150;
 
     //life and armor, armor is optional currently.
+    //Need a max and current value for life.
     public int tankMaxLife;
     public float tankCurrentLife;
     public float tankArmor;
 
-    //Damage, ammo, tracking current ammo, and cooldown
-    //for fire rates in cannon and gun fire function.
+    //The bool is for toggling between tankGun and
+    //tankCannon fire modes.  We need current and max
+    //ammo counts, along with damage, cooldowns, and 
+    //fire rates for each weapon.
     public bool weaponFire = true;
 
     public float tankGunDamage;
@@ -33,6 +43,7 @@ public class TankData : MonoBehaviour
     public float tankCannonAmmoCurrent;
 
     public int tankCannonFireR;
+    public int tankGunFireR;
     public float tankCannonCoolD;
     public float tankGunCoolD;
 
@@ -71,6 +82,7 @@ public class TankData : MonoBehaviour
         tankCannonAmmoCurrent = 10;
 
         tankCannonFireR = 3;
+        tankGunFireR = 1;
 
         lives = 3;
         tankScore = 0;

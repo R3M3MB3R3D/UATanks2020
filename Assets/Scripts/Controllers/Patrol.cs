@@ -1,28 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Since all the 'data' concerning the gameObject comes from
+//TankData and all 'functions' for that 'data' come from
+//other scripts, we make the functions require the data.
+[RequireComponent(typeof(TankData))]
+[RequireComponent(typeof(TankMove))]
+[RequireComponent(typeof(AIControl))]
 
 public class Patrol : MonoBehaviour
 {
+    //Creating variables to attach to scripts and objects.
     private TankData data;
     private TankMove move;
+    private Transform tf;
+    private AIControl control;
 
-    //creating a way to track tanks in between waypoints and which direction
-    //they are moving between them.
+    //Creating variables we will need for this function.
     public int currentWaypoint = 0;
-    public bool patrolForward = true;
     public float closeEnough = 1.0f;
+    public bool patrolForward = true;
 
+
+    //Creating lists we will need for this function.
+    public Transform[] waypoints;
     public enum LoopType { Stop, Loop, PingPong, Error };
     public LoopType loopType;
 
-    //creating a list of positions for enemy tanks to go to.
-    public Transform[] waypoints;
-
     private void Awake()
     {
+        //Attaching scripts and objects.
         data = GetComponent<TankData>();
         move = GetComponent<TankMove>();
+        tf = GetComponent<Transform>();
+        control = GetComponent<AIControl>();
     }
 
     void Update()
@@ -36,8 +47,6 @@ public class Patrol : MonoBehaviour
             move.Move(data.forwardSpeed);
         }
 
-        //if (Vector3.SqrMagnitude(waypoints[currentWaypoint].position - tf.position) <= (closeEnough * closeEnough))
-        //Above is supposedly a better way to do it, but this doesn't work with what I have currently.
         if (Vector3.Distance(transform.position, waypoints[currentWaypoint].position) < closeEnough)
         {
             //creating a switch case to move between different types of patrol to make it less predictable.
