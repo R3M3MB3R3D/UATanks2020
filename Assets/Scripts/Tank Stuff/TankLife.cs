@@ -31,7 +31,6 @@ public class TankLife : MonoBehaviour
         if (data.tankCurrentLife <= 0)
         {
             Destroy(this.gameObject);
-            //ToDo: Increment score.
         }
     }
 }

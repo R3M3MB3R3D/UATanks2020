@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Making all other common tank scripts required
-//considering that they all have functions that
-//take data off of this one.
+//considering that they have functions that
+//take all their information from here anyway.
 [RequireComponent(typeof(TankAttack))]
 [RequireComponent(typeof(TankLife))]
 [RequireComponent(typeof(TankMove))]
@@ -12,21 +12,21 @@ public class TankData : MonoBehaviour
 {
     //These scripts (and components) make use of the tanks' Data.
     //This script will be the one designers use to edit Data.
-    //Here is where we ensure that the scripts attach to the object.
+    //Here is where we ensure that we have variables to attach.
     public Transform tf;
     public TankMove move;
     public TankAttack attack;
     public TankLife life;
 
     //movement and rotation speed for tanks.
-    public float forwardSpeed = 3;
-    public float rotateSpeed = 150;
+    public int forwardSpeed = 3;
+    public int rotateSpeed = 150;
 
     //life and armor, armor is optional currently.
     //Need a max and current value for life.
     public int tankMaxLife;
     public float tankCurrentLife;
-    public float tankArmor;
+    public int tankArmor;
 
     //The bool is for toggling between tankGun and
     //tankCannon fire modes.  We need current and max
@@ -39,7 +39,7 @@ public class TankData : MonoBehaviour
     public float tankGunAmmoCurrent;
 
     public float tankCannonDamage;
-    public float tankCannonAmmoMax;
+    public int tankCannonAmmoMax;
     public float tankCannonAmmoCurrent;
 
     public int tankCannonFireR;
@@ -57,15 +57,19 @@ public class TankData : MonoBehaviour
     //Creating variables for score and enemies destroyed,
     //in order to create a leaderboard and other objects.
     public int lives;
-    public int tankScore;
+    public float tankScore;
     public int scoreValue;
 
     void Awake()
     {
-        tf = GetComponent<Transform>();
-        move = GetComponent<TankMove>();
-        attack = GetComponent<TankAttack>();
-        life = GetComponent<TankLife>();
+        //'this.gameObject.' is not required, but it leaves
+        //very little to the imagination as to what the
+        //reference is for.  Here we attach those variables
+        //to these scripts so that they will interact.
+        tf = this.gameObject.GetComponent<Transform>();
+        move = this.gameObject.GetComponent<TankMove>();
+        attack = this.gameObject.GetComponent<TankAttack>();
+        life = this.gameObject.GetComponent<TankLife>();
 
         forwardSpeed = 5;
         rotateSpeed = 100;

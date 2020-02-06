@@ -15,8 +15,9 @@ public class TankAttack : MonoBehaviour
 
     private void Awake()
     {
-        //Attaching scripts and objects.
-        tankData = this.gameObject.GetComponent<TankData>();
+        //Attaching scripts and objects.  Note that
+        //'this.gameObject' is not used here.
+        tankData = GetComponent<TankData>();
         //We attach GunBall and CannonBall later.
     }
 
@@ -28,6 +29,7 @@ public class TankAttack : MonoBehaviour
         {
             tankData.tankCannonAmmoCurrent = tankData.tankCannonAmmoMax;
         }
+
         //This is so that we never have more gun ammo than we
         //are allowed to carry, this can happen with the ammo pickup.
         if (tankData.tankGunAmmoCurrent > tankData.tankGunAmmoMax)
