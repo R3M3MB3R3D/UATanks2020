@@ -14,7 +14,7 @@ public class TankLife : MonoBehaviour
     void Awake()
     {
         //attaching scripts and objects.
-        data = this.gameObject.GetComponent<TankData>();
+        data = GetComponent<TankData>();
     }
 
     void Update()

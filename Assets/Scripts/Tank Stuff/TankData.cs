@@ -13,20 +13,20 @@ public class TankData : MonoBehaviour
     //These scripts (and components) make use of the tanks' Data.
     //This script will be the one designers use to edit Data.
     //Here is where we ensure that the scripts attach to the object.
-    public Transform tf;
-    public TankMove move;
     public TankAttack attack;
     public TankLife life;
+    public TankMove move;
+    public Transform tf;
 
     //movement and rotation speed for tanks.
-    public float forwardSpeed = 3;
-    public float rotateSpeed = 150;
+    public float forwardSpeed;
+    public float rotateSpeed;
 
     //life and armor, armor is optional currently.
     //Need a max and current value for life.
-    public int tankMaxLife;
     public float tankCurrentLife;
     public float tankArmor;
+    public int tankMaxLife;
 
     //The bool is for toggling between tankGun and
     //tankCannon fire modes.  We need current and max
@@ -35,17 +35,17 @@ public class TankData : MonoBehaviour
     public bool weaponFire = true;
 
     public float tankGunDamage;
-    public int tankGunAmmoMax;
     public float tankGunAmmoCurrent;
+    public int tankGunAmmoMax;
 
     public float tankCannonDamage;
-    public float tankCannonAmmoMax;
     public float tankCannonAmmoCurrent;
+    public int tankCannonAmmoMax;
 
-    public int tankCannonFireR;
-    public int tankGunFireR;
     public float tankCannonCoolD;
     public float tankGunCoolD;
+    public int tankCannonFireR;
+    public int tankGunFireR;
 
     //Creating variables for sound and hearing, vision and
     //seeing, so that AI tanks can "see" and "hear" other tanks
@@ -56,16 +56,19 @@ public class TankData : MonoBehaviour
 
     //Creating variables for score and enemies destroyed,
     //in order to create a leaderboard and other objects.
-    public int lives;
-    public int tankScore;
+    public float lives;
+    public float tankScore;
     public int scoreValue;
 
     void Awake()
     {
-        tf = GetComponent<Transform>();
-        move = GetComponent<TankMove>();
-        attack = GetComponent<TankAttack>();
-        life = GetComponent<TankLife>();
+        //'this.gameObject' is not required, and will not be
+        //used past this script: tf - GetComponent<Transform>();
+        //is all that is needed to attach scripts to objects.
+        attack = this.gameObject.GetComponent<TankAttack>();
+        life = this.gameObject.GetComponent<TankLife>();
+        move = this.gameObject.GetComponent<TankMove>();
+        tf = this.gameObject.GetComponent<Transform>();
 
         forwardSpeed = 5;
         rotateSpeed = 100;
