@@ -11,18 +11,35 @@ public class AISample : MonoBehaviour
     public TankData data;
     public TankAttack attack;
     public TankMove move;
+    public Transform tf;
+    public Transform target;
+    public Transform[] waypoints;
+    Material material;
 
-    //Creating variables we will need for this function
+    //Creating Patrol variables.
+    public bool patrolForward;
+    public float closeEnough;
+    public int currentWaypoint;
+
+    //Creating AI Sense variables.
+    public float hearingdistance;
+    public float FOVangle;
+    public float inSightAngle;
+
+    public float fleeDistance;
+
+    //Creating Rest functionality.
     public float stateEnterTime;
     public int healthRegen;
     public int gunRegen;
     public int cannonRegen;
     public int restTime;
 
-    //Creating lists we will need for this function.
-    public enum AIState { Chase, ChaseAndFire, CheckForFlee, Flee, Rest}
+    public enum LoopType { Stop, Loop, PingPong, Error };
+    public LoopType loopType;
+    public enum AIState { Patrol, Chase, ChaseAndFire, CheckForFlee, Flee, Rest }
     public AIState aiState = AIState.Chase;
-    public enum Identity { Inky, Blinky, Pinky, Clyde }
+    public enum Identity { Aggro, Guard , Sniper , Coward }
     public Identity identity;
 
     void Awake()
@@ -31,8 +48,18 @@ public class AISample : MonoBehaviour
         data = GetComponent<TankData>();
         attack = GetComponent<TankAttack>();
         move = GetComponent<TankMove>();
+        tf = GetComponent<Transform>();
+        material = GetComponent<Material>();
 
         //Setting some variables.
+        currentWaypoint = 0;
+        closeEnough = 1.0f;
+        patrolForward = true;
+
+        hearingdistance = 25f;
+        FOVangle = 45.0f;
+        inSightAngle = 10.0f;
+
         healthRegen = 10;
         gunRegen = 3;
         cannonRegen = 1;
@@ -43,9 +70,29 @@ public class AISample : MonoBehaviour
     {
         switch (aiState)
         {
+            case AIState.Patrol:
+                //Execute function, 'Patrol' is described below.
+                Patrol();
+                break;
+
             case AIState.Chase:
                 //Execute function, 'Chase' is described below.
                 Chase();
+                //Check if lower than half max health.
+                if (data.tankCurrentLife < (data.tankMaxLife * .5))
+                {
+                    ChangeState(AIState.CheckForFlee);
+                }
+                //If 'player' is NOT in range.
+                else if (!playerIsInRange())
+                {
+                    ChangeState(AIState.Chase);
+                }
+                break;
+
+            case AIState.ChaseAndFire:
+                Chase();
+                attack.FireCannon();
                 //Check if lower than half max heath.
                 if (data.tankCurrentLife < (data.tankMaxLife * .5))
                 {
@@ -60,28 +107,13 @@ public class AISample : MonoBehaviour
                 }
                 break;
 
-            case AIState.ChaseAndFire:
-                Chase();
-                attack.FireCannon();
-                //Check if lower than half max health.
-                if (data.tankCurrentLife < (data.tankMaxLife * .5))
-                {
-                    ChangeState(AIState.CheckForFlee);
-                }
-                //If 'player' is NOT in range.
-                else if (!playerIsInRange())
-                {
-                    ChangeState(AIState.Chase);
-                }
-                break;
-
             case AIState.CheckForFlee:
                 //If 'player' IS in range.
                 if (playerIsInRange())
                 {
                     ChangeState(AIState.Flee);
                 }
-                else 
+                else
                 {
                     ChangeState(AIState.Rest);
                 }
@@ -95,6 +127,7 @@ public class AISample : MonoBehaviour
                 }
                 break;
             case AIState.Rest:
+                Rest();
                 if (playerIsInRange())
                 {
                     ChangeState(AIState.Flee);
@@ -136,24 +169,105 @@ public class AISample : MonoBehaviour
         stateEnterTime = Time.time;
     }
 
+    void Patrol()
+    {
+        if (move.RotateTowards(waypoints[currentWaypoint].position, data.rotateSpeed))
+        {
+            //do nothing
+        }
+        else
+        {
+            move.Move(data.forwardSpeed);
+        }
+
+        if (Vector3.Distance(transform.position, waypoints[currentWaypoint].position) < closeEnough)
+        {
+            //creating a switch case to move between different types of patrol to make it less predictable.
+            switch (loopType)
+            {
+                case LoopType.Stop:
+                    if (currentWaypoint < waypoints.Length - 1)
+                    {
+                        currentWaypoint++;
+                    }
+                    break;
+                case LoopType.Loop:
+                    if (currentWaypoint < waypoints.Length - 1)
+                    {
+                        currentWaypoint++;
+                    }
+                    else
+                    {
+                        currentWaypoint = 0;
+                    }
+                    break;
+                case LoopType.PingPong:
+                    if (patrolForward)
+                    {
+                        if (currentWaypoint < waypoints.Length - 1)
+                        {
+                            currentWaypoint++;
+                        }
+                        else
+                        {
+                            patrolForward = false;
+                            currentWaypoint--;
+                        }
+                    }
+                    else
+                    {
+                        if (currentWaypoint > 0)
+                        {
+                            currentWaypoint--;
+                        }
+                        else
+                        {
+                            patrolForward = true;
+                            currentWaypoint++;
+                        }
+                    }
+                    break;
+                case LoopType.Error:
+                    Debug.Log("Patrol Functions Failed or Terminated");
+                    break;
+            }
+        }
+    }
+
     void Chase()
     {
-
+        //rotate towards
+        move.RotateTowards(target.position, data.rotateSpeed);
+        //move towards
+        move.Move(data.forwardSpeed);
     }
 
     void ChaseAndFire ()
     {
-
-    }
-
-    void CheckForFlee()
-    {
-
+        //rotate towards
+        move.RotateTowards(target.position, data.rotateSpeed);
+        //move towards
+        move.Move(data.forwardSpeed);
+        //fire cannon
+        attack.FireCannon();
     }
 
     void Flee()
     {
-
+        //Get our target position by subtracting it from our own.
+        Vector3 vectorToTarget = target.position - tf.position;
+        //Get the opposite direction by multiplying by negative one.
+        Vector3 vectorAwayFromTarget = -1 * vectorToTarget;
+        //Normalize the answer.
+        vectorAwayFromTarget.Normalize();
+        //AwayFromTarget become fleeDistance.
+        vectorAwayFromTarget *= fleeDistance;
+        //Determine which direction is "opposite" of our target.
+        Vector3 fleePosition = vectorAwayFromTarget + tf.position;
+        //Rotate function called.  Rotate away from target.
+        move.RotateTowards(fleePosition, data.rotateSpeed);
+        //Move function called.  Move away from target.
+        move.Move(data.forwardSpeed);
     }
 
     void Rest()
@@ -165,22 +279,22 @@ public class AISample : MonoBehaviour
         data.tankCannonAmmoCurrent += cannonRegen * Time.deltaTime;
     }
 
-    void Inky()
+    void Aggro()
+    {
+        material.color = Color.magenta;
+    }
+
+    void Guard()
     {
 
     }
 
-    void Blinky()
+    void Sniper()
     {
 
     }
 
-    void Pinky()
-    {
-
-    }
-
-    void Clyde()
+    void Coward()
     {
 
     }
