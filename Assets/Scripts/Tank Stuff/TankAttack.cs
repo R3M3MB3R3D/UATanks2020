@@ -15,15 +15,9 @@ public class TankAttack : MonoBehaviour
 
     private void Awake()
     {
-<<<<<<< HEAD
-        //Attaching scripts and objects.  Note that
-        //'this.gameObject' is not used here.
-        tankData = GetComponent<TankData>();
-=======
         //Attaching scripts and objects, note that
         //'this.gameObject' is not needed.
         data = GetComponent<TankData>();
->>>>>>> master
         //We attach GunBall and CannonBall later.
     }
 
@@ -64,6 +58,8 @@ public class TankAttack : MonoBehaviour
             //instead of saying 'data.tankCannon = data.tankCannon - 1;'
             //we can say '-=' to deincrement, and '+=' to increment.
             data.tankCannonAmmoCurrent -= 1;
+            //Firing a cannon makes a lot of noise.
+            data.noiseLevel = 20;
         }
     }
 
@@ -82,8 +78,10 @@ public class TankAttack : MonoBehaviour
             gunBallScript.shooter = this.gameObject;
             //Begin "reloading".
             data.tankGunCoolD = 0;
-            //Account for the fired GunBall
+            //Account for the fired GunBall.
             data.tankGunAmmoCurrent -= 1;
+            //Firing a gun makes a lot of noise.
+            data.noiseLevel = 10;
         }
     }
 }

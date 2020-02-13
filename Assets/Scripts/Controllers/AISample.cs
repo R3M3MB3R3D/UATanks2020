@@ -11,10 +11,10 @@ public class AISample : MonoBehaviour
     public TankData data;
     public TankAttack attack;
     public TankMove move;
+    public AIControl control;
     public Transform tf;
     public Transform target;
     public Transform[] waypoints;
-    Material material;
 
     //Creating Patrol variables.
     public bool patrolForward;
@@ -48,8 +48,8 @@ public class AISample : MonoBehaviour
         data = GetComponent<TankData>();
         attack = GetComponent<TankAttack>();
         move = GetComponent<TankMove>();
+        control = GetComponent<AIControl>();
         tf = GetComponent<Transform>();
-        material = GetComponent<Material>();
 
         //Setting some variables.
         currentWaypoint = 0;
@@ -140,27 +140,19 @@ public class AISample : MonoBehaviour
                 }
                 break;
         }
-
-        switch (identity)
-        {
-            case Identity.Inky:
-                Inky();
-                break;
-            case Identity.Blinky:
-                Blinky();
-                break;
-            case Identity.Pinky:
-                Pinky();
-                break;
-            case Identity.Clyde:
-                Clyde();
-                break;
-        }
     }
 
     private bool playerIsInRange()
     {
-        return true;
+        if (control.canDetectSight(data))
+        {
+            return true;
+        }
+        if (control.canDetectNoise(data))
+        {
+            return true;
+        }
+        return false;
     }
 
     void ChangeState(AIState newState)
@@ -279,23 +271,4 @@ public class AISample : MonoBehaviour
         data.tankCannonAmmoCurrent += cannonRegen * Time.deltaTime;
     }
 
-    void Aggro()
-    {
-        material.color = Color.magenta;
-    }
-
-    void Guard()
-    {
-
-    }
-
-    void Sniper()
-    {
-
-    }
-
-    void Coward()
-    {
-
-    }
 }

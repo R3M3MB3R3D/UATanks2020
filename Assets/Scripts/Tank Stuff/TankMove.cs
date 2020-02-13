@@ -25,12 +25,14 @@ public class TankMove : MonoBehaviour
     {
         Vector3 speedVector = tf.forward * speed;
         control.SimpleMove(speedVector);
+        data.noiseLevel = 5;
     }
 
     public void Rotate(float speed)
     {
         Vector3 rotateVector = Vector3.up * speed * Time.deltaTime;
         tf.Rotate(rotateVector, relativeTo: Space.Self);
+        data.noiseLevel = 3;
     }
 
     public bool RotateTowards(Vector3 target, float speed)
