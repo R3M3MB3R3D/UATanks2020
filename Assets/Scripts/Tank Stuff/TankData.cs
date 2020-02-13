@@ -12,21 +12,36 @@ public class TankData : MonoBehaviour
 {
     //These scripts (and components) make use of the tanks' Data.
     //This script will be the one designers use to edit Data.
+<<<<<<< HEAD
     //Here is where we ensure that we have variables to attach.
     public Transform tf;
     public TankMove move;
+=======
+    //Here is where we ensure that the scripts attach to the object.
+>>>>>>> master
     public TankAttack attack;
     public TankLife life;
+    public TankMove move;
+    public Transform tf;
 
     //movement and rotation speed for tanks.
+<<<<<<< HEAD
     public int forwardSpeed = 3;
     public int rotateSpeed = 150;
+=======
+    public float forwardSpeed;
+    public float rotateSpeed;
+>>>>>>> master
 
     //life and armor, armor is optional currently.
     //Need a max and current value for life.
-    public int tankMaxLife;
     public float tankCurrentLife;
+<<<<<<< HEAD
     public int tankArmor;
+=======
+    public float tankArmor;
+    public int tankMaxLife;
+>>>>>>> master
 
     //The bool is for toggling between tankGun and
     //tankCannon fire modes.  We need current and max
@@ -35,17 +50,21 @@ public class TankData : MonoBehaviour
     public bool weaponFire = true;
 
     public float tankGunDamage;
-    public int tankGunAmmoMax;
     public float tankGunAmmoCurrent;
+    public int tankGunAmmoMax;
 
     public float tankCannonDamage;
+<<<<<<< HEAD
     public int tankCannonAmmoMax;
+=======
+>>>>>>> master
     public float tankCannonAmmoCurrent;
+    public int tankCannonAmmoMax;
 
-    public int tankCannonFireR;
-    public int tankGunFireR;
     public float tankCannonCoolD;
     public float tankGunCoolD;
+    public int tankCannonFireR;
+    public int tankGunFireR;
 
     //Creating variables for sound and hearing, vision and
     //seeing, so that AI tanks can "see" and "hear" other tanks
@@ -56,12 +75,17 @@ public class TankData : MonoBehaviour
 
     //Creating variables for score and enemies destroyed,
     //in order to create a leaderboard and other objects.
+<<<<<<< HEAD
     public int lives;
+=======
+    public float lives;
+>>>>>>> master
     public float tankScore;
     public int scoreValue;
 
     void Awake()
     {
+<<<<<<< HEAD
         //'this.gameObject.' is not required, but it leaves
         //very little to the imagination as to what the
         //reference is for.  Here we attach those variables
@@ -70,6 +94,15 @@ public class TankData : MonoBehaviour
         move = this.gameObject.GetComponent<TankMove>();
         attack = this.gameObject.GetComponent<TankAttack>();
         life = this.gameObject.GetComponent<TankLife>();
+=======
+        //'this.gameObject' is not required, and will not be
+        //used past this script: tf - GetComponent<Transform>();
+        //is all that is needed to attach scripts to objects.
+        attack = this.gameObject.GetComponent<TankAttack>();
+        life = this.gameObject.GetComponent<TankLife>();
+        move = this.gameObject.GetComponent<TankMove>();
+        tf = this.gameObject.GetComponent<Transform>();
+>>>>>>> master
 
         forwardSpeed = 5;
         rotateSpeed = 100;

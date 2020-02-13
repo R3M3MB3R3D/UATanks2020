@@ -11,20 +11,20 @@ public class TankMove : MonoBehaviour
     //Creating variables to attach to scripts and objects.
     private TankData data;
     private Transform tf;
-    private CharacterController characterController;
+    private CharacterController control;
 
     void Awake()
     {
         //Attaching scripts and objects.
         data = GetComponent<TankData>();
         tf = GetComponent<Transform>();
-        characterController = GetComponent<CharacterController>();
+        control = GetComponent<CharacterController>();
     }
 
     public void Move(float speed)
     {
         Vector3 speedVector = tf.forward * speed;
-        characterController.SimpleMove(speedVector);
+        control.SimpleMove(speedVector);
     }
 
     public void Rotate(float speed)
@@ -35,7 +35,7 @@ public class TankMove : MonoBehaviour
 
     public bool RotateTowards(Vector3 target, float speed)
     {
-        //creating a variable to see the difference between you and your target.
+        //creating a variable to see the difference between AI and player location.
         Vector3 vectorToTarget = target - tf.position;
         //Quaternions allow for smoother actions, especially from AI actions.
         Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget);
