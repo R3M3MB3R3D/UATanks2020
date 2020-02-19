@@ -43,7 +43,7 @@ public class TankData : MonoBehaviour
 
     public float tankCannonCoolD;
     public float tankGunCoolD;
-    public int tankCannonFireR;
+    public float tankCannonFireR;
     public int tankGunFireR;
 
     //Creating variables for sound and hearing, vision and
