@@ -35,6 +35,9 @@ public class PowerControl : MonoBehaviour
     public void AddPower(PowerUp power)
     {
         power.Activate(data);
-        powerups.Add(power);
+        if (!power.isPermanent)
+        {
+            powerups.Add(power);
+        }
     }
 }
