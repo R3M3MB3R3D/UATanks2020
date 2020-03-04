@@ -5,11 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject levelGameObject;
 
     public GameObject instantiatedPlayerTank;
     public GameObject playerTankPrefab;
 
-    public GameObject[] instantiatedEnemyTanks;
+    public List<GameObject> instantiatedEnemyTanks;
     public GameObject[] enemyTankPrefabs;
 
     public List<GameObject> playerSpawnPoints;
@@ -30,15 +31,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void Update()
-    {
-        if (instantiatedPlayerTank == null)
-        {
-            SpawnPlayer(RandomSpawnPoint(playerSpawnPoints));
-        }
-    }
-
-    private GameObject RandomSpawnPoint(List<GameObject> SpawnPoints)
+    public GameObject RandomSpawnPoint(List<GameObject> SpawnPoints)
     {
         // get a random spawn point from inside our list of spawn points.
         int spawnToGet = UnityEngine.Random.Range(0, SpawnPoints.Count - 1);
@@ -53,6 +46,12 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnemy(GameObject spawnPoint)
     {
-        //create an enemy tank and label it in the game manager.
+        //create as many enemy tanks as we have identities for them
+        //Create enemy tanks and label them in the game manager.
+        for (int i = 0; i < enemyTankPrefabs.Length; ++i)
+        {
+            GameObject instantiatedEnemyTank = Instantiate(enemyTankPrefabs[i], RandomSpawnPoint(enemySpawnPoints).transform.position, Quaternion.identity);
+            instantiatedEnemyTanks.Add(instantiatedEnemyTank);
+        }
     }
 }

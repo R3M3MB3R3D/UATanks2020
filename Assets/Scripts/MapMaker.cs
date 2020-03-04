@@ -20,12 +20,14 @@ public class MapMaker : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.levelGameObject = this.gameObject;
         switch (mapType)
         {
             case MapType.Day:
                 mapSeed = DateToInt(DateTime.Now.Date);
                 break;
             case MapType.Seed:
+                UnityEngine.Random.seed = mapSeed;
                 break;
             case MapType.Random:
                 mapSeed = DateToInt(DateTime.Now);
@@ -35,6 +37,8 @@ public class MapMaker : MonoBehaviour
                 break;
         }
         MakeMap();
+        GameManager.instance.SpawnPlayer(GameManager.instance.RandomSpawnPoint(GameManager.instance.playerSpawnPoints));
+        GameManager.instance.SpawnEnemy(GameManager.instance.RandomSpawnPoint(GameManager.instance.enemySpawnPoints));
     }
 
     public GameObject RandomRoom()
@@ -49,7 +53,6 @@ public class MapMaker : MonoBehaviour
 
     public void MakeMap()
     {
-        UnityEngine.Random.seed = mapSeed;
         grid = new Room[cols, rows];
         for (int row = 0; row < rows; row++)
         {
