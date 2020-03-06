@@ -42,7 +42,7 @@ public class AISample : MonoBehaviour
     public enum Identity { Aggro, Guard , Sniper , Coward }
     public Identity identity;
 
-    void Awake()
+    void Start()
     {
         //Attaching scripts and objects.
         data = GetComponent<TankData>();
@@ -61,8 +61,6 @@ public class AISample : MonoBehaviour
         inSightAngle = 10.0f;
 
         healthRegen = 10;
-        gunRegen = 3;
-        cannonRegen = 1;
         restTime = 5;
     }
 
@@ -265,10 +263,7 @@ public class AISample : MonoBehaviour
     void Rest()
     {
         //When an AI goes into rest they can regenerate health
-        //and ammo for an amount of time up to designers.
         data.tankCurrentLife += healthRegen * Time.deltaTime;
-        data.tankGunAmmoCurrent += gunRegen * Time.deltaTime;
-        data.tankCannonAmmoCurrent += cannonRegen * Time.deltaTime;
     }
 
 }

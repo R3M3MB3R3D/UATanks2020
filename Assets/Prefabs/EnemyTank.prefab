@@ -128,26 +128,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54be443a55face46842ec6d11c334b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tf: {fileID: 0}
-  move: {fileID: 7828486627616932}
   attack: {fileID: 1760838553909394726}
   life: {fileID: 8124381212272831554}
+  move: {fileID: 7828486627616932}
+  tf: {fileID: 0}
   forwardSpeed: 3
   rotateSpeed: 150
-  tankMaxLife: 0
   tankCurrentLife: 0
   tankArmor: 0
+  tankMaxLife: 0
+  weaponFire: 1
   tankGunDamage: 0
-  tankGunAmmoMax: 0
   tankGunAmmoCurrent: 0
+  tankGunAmmoMax: 0
   tankCannonDamage: 0
-  tankCannonAmmoMax: 0
   tankCannonAmmoCurrent: 0
-  tankCannonFireR: 0
+  tankCannonAmmoMax: 0
   tankCannonCoolD: 0
   tankGunCoolD: 0
+  tankCannonFireR: 0
+  tankGunFireR: 0
   noiseLevel: 0
-  hitBox: 0
+  noiseDetect: 0
+  sightDetect: 0
+  sightFOV: 0
   lives: 0
   tankScore: 0
   scoreValue: 0
@@ -163,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76bcc7218a263e46ae30e79c0ddaff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankData: {fileID: 3852986091755135353}
+  data: {fileID: 0}
 --- !u!114 &7828486627616932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,10 +192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bcb025246d77f428f068d675081e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  GunBall: {fileID: 6464406140241102709, guid: 63d54dbe2fdbb4d4293b9d2435f99b22, type: 3}
   CannonBall: {fileID: 4177063642283477472, guid: 0e588dc989c44e74a90fc5b34402fcfa,
     type: 3}
-  GunBall: {fileID: 6464406140241102709, guid: 63d54dbe2fdbb4d4293b9d2435f99b22, type: 3}
-  tankData: {fileID: 3852986091755135353}
 --- !u!114 &1299139299525524232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,10 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e12feeda4fdd448b13c6e47a709257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  currentWaypoint: 0
-  closeEnough: 1
+  move: {fileID: 0}
+  data: {fileID: 0}
+  attack: {fileID: 0}
+  tf: {fileID: 0}
+  target: {fileID: 0}
