@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //Create a GameManager to handle most aspects of the game
     public static GameManager instance;
     public GameObject levelGameObject;
 
+    //Create a variable for AI to recognize player.
     public GameObject instantiatedPlayerTank;
     public GameObject playerTankPrefab;
 
-    public List<GameObject> instantiatedEnemyTanks;
+    //Create a list of enemies.
     public GameObject[] enemyTankPrefabs;
+    public List<GameObject> instantiatedEnemyTanks;
 
+    //Create a list of player spawn points.
     public List<GameObject> playerSpawnPoints;
+    //Create a list of enemy spawn points.
     public List<GameObject> enemySpawnPoints;
+    //Create a list of waypoints.
+    public List<GameObject> waypoints;
+    //Create a list of powerups.
+    public List<GameObject> upgradeSpawns;
 
 
     void Awake()

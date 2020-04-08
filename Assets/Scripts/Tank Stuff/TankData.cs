@@ -46,14 +46,11 @@ public class TankData : MonoBehaviour
     public float tankCannonFireR;
     public int tankGunFireR;
 
-    //Creating variables for sound and hearing, vision and
-    //seeing, so that AI tanks can "see" and "hear" other tanks
-    //(and walls) so that they can interact with them a little 
-    //bit better.
+    //We need a variable for how far 'sound' travels.
     public float noiseLevel;
     public int noiseDetect;
-    public int sightDetect;
     public int sightFOV;
+    public int sightDetect;
 
     //Creating variables for score and enemies destroyed,
     //in order to create a leaderboard and other objects.
@@ -89,9 +86,6 @@ public class TankData : MonoBehaviour
         tankCannonAmmoMax = 10;
         tankGunFireR = 1;
 
-        noiseDetect = 25;
-        sightDetect = 60;
-        sightFOV = 75;
         scoreValue = 1;
     }
 
@@ -110,3 +104,7 @@ public class TankData : MonoBehaviour
         }
     }
 }
+
+// CTRL+L = Delete entire line
+// CTRL+SHIFT+S = Save all open
+// CTRL+K+D = Format Code

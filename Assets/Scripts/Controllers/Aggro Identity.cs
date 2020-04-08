@@ -17,8 +17,8 @@ public class AggroIdentity : MonoBehaviour
     public float stateEnterTime;
 
     //creating a list for AI functions
-    public enum AIState { Chase, Attack, CheckForFlee, Flee, Rest, Powerup, Avoid }
-    public AIState aiState = AIState.Rest;
+    public enum AIState {  Attack, Wander }
+    public AIState aiState = AIState.Wander;
 
     // Start is called before the first frame update
     void Start()
@@ -35,54 +35,44 @@ public class AggroIdentity : MonoBehaviour
     {
         switch (aiState)
         {
-            case AIState.Chase:
-                control.Chase();
-                //Check if lower than half max health.
-                if (data.tankCurrentLife < (data.tankMaxLife * .5))
-                {
-                    ChangeState(AIState.CheckForFlee);
-                }
-                //If 'player' is NOT in range.
-                else if (!control.playerIsInRange())
-                {
-                    ChangeState(AIState.Chase);
-                }
-                else if (control.CanMove(data.forwardSpeed) == false)
-                {
-                    ChangeState(AIState.Avoid);
-                }
-                break;
             case AIState.Attack:
-                control.Chase();
-                attack.FireCannon();
-                //Check if lower than half max heath.
-                if (data.tankCurrentLife < (data.tankMaxLife * .5))
-                {
-                    //ChangeState is a function below
-                    ChangeState(AIState.CheckForFlee);
-                }
-                // TODO: implement 'sight' and 'hearing' so the AI can check this.
-                else if (control.playerIsInRange())
-                {
-                    //ChageState also tracks when the AI switches state.
-                    ChangeState(AIState.Attack);
-                }
-                else if (control.CanMove(data.forwardSpeed) == false)
-                {
-                    ChangeState(AIState.Avoid);
-                }
+                AggroAttack();
                 break;
-            case AIState.Avoid:
+            case AIState.Wander:
+                AggroWander();
+                break;
+        }
+    }
+
+    void AggroAttack()
+    {
+        if (control.playerIsInRange() == true)
+        {
+            control.Attack();
+            if (control.CanMove(data.forwardSpeed) == false)
+            {
                 control.Avoid();
-                if (control.playerIsInRange())
-                {
-                    ChangeState(AIState.Chase);
-                }
-                else
-                {
-                    ChangeState(AIState.Attack);
-                }
-                break;
+            }
+        }
+        else
+        {
+            ChangeState(AIState.Wander);
+        }
+    }
+
+    void AggroWander()
+    {
+        if (control.playerIsInRange() == false)
+        {
+            control.Wander();
+            if (control.CanMove(data.forwardSpeed) == false)
+            {
+                control.Avoid();
+            }
+        }
+        else
+        {
+            ChangeState(AIState.Attack);
         }
     }
 

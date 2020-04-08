@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7828486627616932}
   - component: {fileID: 1760838553909394726}
   - component: {fileID: 1299139299525524232}
+  - component: {fileID: 6854479923603726926}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -150,8 +151,8 @@ MonoBehaviour:
   tankGunFireR: 0
   noiseLevel: 0
   noiseDetect: 0
-  sightDetect: 0
   sightFOV: 0
+  sightDetect: 0
   lives: 0
   tankScore: 0
   scoreValue: 0
@@ -212,4 +213,34 @@ MonoBehaviour:
   data: {fileID: 0}
   attack: {fileID: 0}
   tf: {fileID: 0}
-  target: {fileID: 0}
+  color: {fileID: 0}
+  target: {fileID: 8274669737541193101, guid: 7899f73948c7a9844b183311806278e0, type: 3}
+  fleeDistance: 5
+  restTime: 5
+  healthRegen: 5
+  stateEnterTime: 0
+  exitTime: 0
+  avoidTime: 2
+  hearingdistance: 25
+  FOVangle: 90
+  inSightAngle: 60
+  currentWaypoint: 0
+  closeEnough: 1
+  patrolForward: 1
+  waypoints: []
+  loopType: 0
+  identity: 0
+--- !u!114 &6854479923603726926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299139299525524233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 515edd4b3abed2d498d271cf9f3f8bcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerups: []
+  data: {fileID: 0}

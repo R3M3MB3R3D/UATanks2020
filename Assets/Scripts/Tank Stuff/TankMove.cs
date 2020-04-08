@@ -23,6 +23,7 @@ public class TankMove : MonoBehaviour
 
     public void Move(float speed)
     {
+        //Debug.Log("Moving");
         Vector3 speedVector = tf.forward * speed;
         control.SimpleMove(speedVector);
         data.noiseLevel = 5;
