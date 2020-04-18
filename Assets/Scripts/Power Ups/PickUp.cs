@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     public PowerUp powerup;
-    public AudioClip FeedbackAudioClip;
+    public AudioClip TankPowerSound;
     private Transform tf;
 
     private void Start()
@@ -19,9 +19,9 @@ public class PickUp : MonoBehaviour
         if (powerControl != null)
         {
             powerControl.AddPower(powerup);
-            if (FeedbackAudioClip != null)
+            if (TankPowerSound != null)
             {
-                AudioSource.PlayClipAtPoint(FeedbackAudioClip, tf.position, 1.0f);
+                AudioSource.PlayClipAtPoint(TankPowerSound, tf.position, 1.0f);
             }
             Destroy(this.gameObject);
         }

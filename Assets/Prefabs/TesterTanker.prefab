@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2399310821056479082}
   - component: {fileID: 2846843291683476400}
   - component: {fileID: 4247250095046738542}
+  - component: {fileID: 4011216643914464906}
   m_Layer: 0
   m_Name: Player Lives
   m_TagString: Untagged
@@ -34,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -80, y: -15}
+  m_AnchoredPosition: {x: -89.5, y: -21.600006}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2846843291683476400
@@ -78,7 +79,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 00
+--- !u!114 &4011216643914464906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631317851279686225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c09ad1af11aeb419892432b2bae5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  text: {fileID: 4247250095046738542}
 --- !u!1 &5275961759998252469
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,8 +143,8 @@ Canvas:
   m_GameObject: {fileID: 5275961759998252469}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 6314382138330014098}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -190,6 +205,7 @@ GameObject:
   - component: {fileID: 8467371133028857525}
   - component: {fileID: 5101914728315011187}
   - component: {fileID: 7765120524311616874}
+  - component: {fileID: 507867167423480283}
   m_Layer: 0
   m_Name: Player Score
   m_TagString: Untagged
@@ -213,7 +229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -15}
+  m_AnchoredPosition: {x: 86.79999, y: -21.300003}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5101914728315011187
@@ -257,7 +273,21 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
+--- !u!114 &507867167423480283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113373591496119348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8592f946d432a4abc9679dc03761a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
+  text: {fileID: 7765120524311616874}
 --- !u!1 &8274669737541193099
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +307,7 @@ GameObject:
   - component: {fileID: 8274669737541193098}
   - component: {fileID: 102007799592489574}
   - component: {fileID: 1733131217481263210}
+  - component: {fileID: 7476304509631273389}
   m_Layer: 0
   m_Name: TesterTanker
   m_TagString: Untagged
@@ -406,29 +437,30 @@ MonoBehaviour:
   life: {fileID: -3619740460348363191}
   move: {fileID: 8274669737541193098}
   tf: {fileID: 0}
-  forwardSpeed: 3
-  rotateSpeed: 150
-  tankCurrentLife: 0
+  forwardSpeed: 5
+  rotateSpeed: 200
+  tankCurrentLife: 100
   tankArmor: 0
-  tankMaxLife: 0
+  tankMaxLife: 100
   weaponFire: 1
-  tankGunDamage: 0
-  tankGunAmmoCurrent: 0
-  tankGunAmmoMax: 0
-  tankCannonDamage: 0
-  tankCannonAmmoCurrent: 0
-  tankCannonAmmoMax: 0
+  tankGunDamage: 10
+  tankGunAmmoCurrent: 50
+  tankGunAmmoMax: 100
+  tankCannonDamage: 50
+  tankCannonAmmoCurrent: 10
+  tankCannonAmmoMax: 10
   tankCannonCoolD: 0
   tankGunCoolD: 0
-  tankCannonFireR: 0
+  tankCannonFireR: 3
   tankGunFireR: 0
   noiseLevel: 0
   noiseDetect: 0
   sightFOV: 0
   sightDetect: 0
-  lives: 0
-  tankScore: 0
   scoreValue: 0
+  lives: 3
+  score: 0
+  playerNumber: 0
 --- !u!114 &-3619740460348363191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+  scene: {fileID: 0}
 --- !u!114 &8274669737541193098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661ae9b6fdd46b94ebc0fac6097a2dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tankMoveSound: {fileID: 8300000, guid: 120e16d19041eae489d7aec72aa221c0, type: 3}
+  tankNoiseSource: {fileID: 0}
 --- !u!114 &102007799592489574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,6 +505,8 @@ MonoBehaviour:
   GunBall: {fileID: 6464406140241102709, guid: 63d54dbe2fdbb4d4293b9d2435f99b22, type: 3}
   CannonBall: {fileID: 4177063642283477472, guid: 0e588dc989c44e74a90fc5b34402fcfa,
     type: 3}
+  TankCannonSound: {fileID: 8300000, guid: 2a8c11da6fa2c0245ab6182e91c18482, type: 3}
+  TankGunSound: {fileID: 8300000, guid: 8e2ef4647260b0745a1c91e6075935cb, type: 3}
 --- !u!114 &1733131217481263210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,6 +521,103 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerups: []
   data: {fileID: 0}
+--- !u!82 &7476304509631273389
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274669737541193099}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 3007814042546168915, guid: 9d318e8dadd6a924785bdba377ba5d71,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8305569918148215907
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +629,7 @@ GameObject:
   - component: {fileID: 5110772695431507189}
   - component: {fileID: 6314382138330014098}
   - component: {fileID: 2710574174436210395}
+  - component: {fileID: 3675432984032461068}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -567,3 +702,16 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8305569918148215907}
   m_Enabled: 1
+--- !u!114 &3675432984032461068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8305569918148215907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c76bc4fc679dcb44a132e9cf1ec1c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vision: {fileID: 6314382138330014098}

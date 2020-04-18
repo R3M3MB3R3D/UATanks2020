@@ -114,4 +114,5 @@ MonoBehaviour:
     fireRateMod: 1
     duration: 30
     isPermanent: 0
-  FeedbackAudioClip: {fileID: 0}
+    powerType: 0
+  TankPowerSound: {fileID: 8300000, guid: 50ed552c77a33c14a8901c627cff0a55, type: 3}

@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 2
-  force: 2000
+  force: 3000
   shooter: {fileID: 0}
 --- !u!54 &3937023367364217920
 Rigidbody:

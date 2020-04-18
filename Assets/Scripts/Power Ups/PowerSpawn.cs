@@ -10,7 +10,6 @@ public class PowerSpawn : MonoBehaviour
 
     void Start()
     {
-        spawnTimeMax = 15.0f;
         spawnTimeCurrent = spawnTimeMax;
     }
 

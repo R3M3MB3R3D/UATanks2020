@@ -26,6 +26,7 @@ public class MapMaker : MonoBehaviour
 
     private void Start()
     {
+        mapType = (MapType)GameManager.instance.mapType;
         //Tell the game manager that 'this' is the room.
         GameManager.instance.levelGameObject = this.gameObject;
         //Switch case to help decide which map type to use.
@@ -47,8 +48,7 @@ public class MapMaker : MonoBehaviour
         //Begin making the map.
         MakeMap();
         //Begin spawning tanks.
-        GameManager.instance.SpawnPlayer(GameManager.instance.RandomSpawnPoint(GameManager.instance.playerSpawnPoints));
-        GameManager.instance.SpawnEnemy(GameManager.instance.RandomSpawnPoint(GameManager.instance.enemySpawnPoints));
+        GameManager.instance.StartGame();
     }
 
     //Create a function for grabbing prefabricated rooms.

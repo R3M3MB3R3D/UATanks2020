@@ -3,7 +3,12 @@ guid: 29bcb025246d77f428f068d675081e6e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - data: {instanceID: 0}
+  - GunBall: {instanceID: 0}
+  - CannonBall: {instanceID: 0}
+  - TankCannonSound: {fileID: 8300000, guid: 2a8c11da6fa2c0245ab6182e91c18482, type: 3}
+  - TankGunSound: {fileID: 8300000, guid: 8e2ef4647260b0745a1c91e6075935cb, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

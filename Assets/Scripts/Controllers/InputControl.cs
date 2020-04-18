@@ -16,7 +16,7 @@ public class InputControl : MonoBehaviour
     
     //Creating lists we will need for this function.
     public enum InputScheme { WASD, IJKL };
-    public InputScheme input = InputScheme.WASD;
+    public InputScheme input;
     //ToDo: Make it so that the control scheme can be changed by the player.
 
     void Awake()
@@ -39,10 +39,15 @@ public class InputControl : MonoBehaviour
                     move.Move(data.forwardSpeed);
                 }
                 //When "S" is pressed.
-                if (Input.GetKey(KeyCode.S))
+                else if (Input.GetKey(KeyCode.S))
                 {
                     //Move function called, Object moves back.
                     move.Move(-data.forwardSpeed);
+                }
+                //When neither is being pressed, audio should stop.
+                else
+                {
+                    move.tankNoiseSource.Stop();
                 }
                 //When "D" is pressed.
                 if (Input.GetKey(KeyCode.D))
@@ -74,6 +79,60 @@ public class InputControl : MonoBehaviour
                 }
                 //When "E" is pressed once.
                 if (Input.GetKeyDown(KeyCode.E))
+                {
+                    //change weaponFire to the opposite of what it is now (t/f).
+                    data.weaponFire = !data.weaponFire;
+                }
+                break;
+
+            case InputScheme.IJKL:
+                //When "I" is pressed.
+                if (Input.GetKey(KeyCode.I))
+                {
+                    //Move function called, Object moves forward.
+                    move.Move(data.forwardSpeed);
+                }
+                //When "K" is pressed.
+                else if (Input.GetKey(KeyCode.K))
+                {
+                    //Move function called, Object moves back.
+                    move.Move(-data.forwardSpeed);
+                }
+                //When neither is being pressed, audio should stop.
+                else
+                {
+                    move.tankNoiseSource.Stop();
+                }
+                //When "L" is pressed.
+                if (Input.GetKey(KeyCode.L))
+                {
+                    //Rotate function called, Object turns right.
+                    move.Rotate(data.rotateSpeed);
+                }
+                //When "J" is pressed.
+                if (Input.GetKey(KeyCode.J))
+                {
+                    //Rotate function called, Object turns left.
+                    move.Rotate(-data.rotateSpeed);
+                }
+                //When "U" is pressed once.
+                if (Input.GetKeyDown(KeyCode.U))
+                {
+                    //If weaponFire is True.
+                    if (data.weaponFire == true)
+                    {
+                        //FireCannon function called.
+                        attack.FireCannon();
+                    }
+                    //If weaponFire is False.
+                    else
+                    {
+                        //FireGun function called.
+                        attack.FireGun();
+                    }
+                }
+                //When "O" is pressed once.
+                if (Input.GetKeyDown(KeyCode.O))
                 {
                     //change weaponFire to the opposite of what it is now (t/f).
                     data.weaponFire = !data.weaponFire;

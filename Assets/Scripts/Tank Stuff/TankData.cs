@@ -54,9 +54,10 @@ public class TankData : MonoBehaviour
 
     //Creating variables for score and enemies destroyed,
     //in order to create a leaderboard and other objects.
-    public float lives;
-    public float tankScore;
     public int scoreValue;
+    public int lives;
+    public int score;
+    public int playerNumber;
 
     void Awake()
     {
@@ -68,25 +69,6 @@ public class TankData : MonoBehaviour
         move = this.gameObject.GetComponent<TankMove>();
         attack = this.gameObject.GetComponent<TankAttack>();
         life = this.gameObject.GetComponent<TankLife>();
-
-        forwardSpeed = 5;
-        rotateSpeed = 200;
-
-        tankCurrentLife = 100;
-        tankMaxLife = 100;
-        tankArmor = 1;
-
-        tankGunDamage = 2;
-        tankGunAmmoCurrent = 50;
-        tankGunAmmoMax = 100;
-        tankCannonFireR = 3;
-
-        tankCannonDamage = 50;
-        tankCannonAmmoCurrent = 5;
-        tankCannonAmmoMax = 10;
-        tankGunFireR = 1;
-
-        scoreValue = 1;
     }
 
     void Update()

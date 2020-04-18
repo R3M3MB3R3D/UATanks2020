@@ -12,12 +12,16 @@ public class TankAttack : MonoBehaviour
     public TankData data;
     public GameObject GunBall;
     public GameObject CannonBall;
+    public AudioClip TankCannonSound;
+    public AudioClip TankGunSound;
+    private Transform tf;
 
     private void Awake()
     {
         //Attaching scripts and objects, note that
         //'this.gameObject' is not needed.
         data = GetComponent<TankData>();
+        tf = gameObject.GetComponent<Transform>();
         //We attach GunBall and CannonBall later.
     }
 
@@ -60,6 +64,8 @@ public class TankAttack : MonoBehaviour
             data.tankCannonAmmoCurrent -= 1;
             //Firing a cannon makes a lot of noise.
             data.noiseLevel = 20;
+            //And plays this audioclip
+            AudioSource.PlayClipAtPoint(TankCannonSound, tf.position, 1.0f);
         }
     }
 
@@ -82,6 +88,8 @@ public class TankAttack : MonoBehaviour
             data.tankGunAmmoCurrent -= 1;
             //Firing a gun makes a lot of noise.
             data.noiseLevel = 10;
+            //And plays this audioclip.
+            AudioSource.PlayClipAtPoint(TankGunSound, tf.position, 1.0f);
         }
     }
 }

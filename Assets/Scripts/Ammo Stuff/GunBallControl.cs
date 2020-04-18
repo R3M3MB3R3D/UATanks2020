@@ -9,7 +9,7 @@ public class GunBallControl : MonoBehaviour
     //TankAttack script and is necessary to calculate
     //damage dealt to target gameobjects.
     public int timer = 4;
-    public int force = 2000;
+    public int force;
     public GameObject shooter;
 
     void Start()
@@ -39,7 +39,10 @@ public class GunBallControl : MonoBehaviour
         {
             //gets target health, and deals shooters damage values.
             c.GetComponent<TankData>().tankCurrentLife -= shooter.GetComponent<TankData>().tankGunDamage;
-            //destroys the GunBall
+            if (c.GetComponent<TankData>().tankCurrentLife <= 0)
+            {
+                shooter.GetComponent<TankData>().score += 1;
+            }
             Destroy(this.gameObject);
         }
     }

@@ -3,7 +3,8 @@ guid: 661ae9b6fdd46b94ebc0fac6097a2dfb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - TankMoveSound: {fileID: 8300000, guid: 120e16d19041eae489d7aec72aa221c0, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

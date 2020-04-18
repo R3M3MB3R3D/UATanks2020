@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnTimeCurrent: 0
-  spawnTimeMax: 0
+  spawnTimeMax: 30
   powerUp: {fileID: 632337330223334658, guid: 44901a346732f58478c6acb08c69e0a5, type: 3}

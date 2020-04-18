@@ -30,7 +30,39 @@ public class TankLife : MonoBehaviour
         //destroyed and the score is updated for the destroyer.
         if (data.tankCurrentLife <= 0)
         {
-            Destroy(this.gameObject);
+            if (data.lives > 0)
+            {
+                //instead of destroying the players we will reset them elsewhere
+                //as long as they have lives to spare.
+                if (data.playerNumber == 0 || data.playerNumber == 1)
+                {
+                    data.lives -= 1;
+                    data.tankCurrentLife = data.tankMaxLife;
+                    transform.position = GameManager.instance.RandomSpawnPoint(GameManager.instance.playerSpawnPoints).transform.position;
+                }
+                else
+                {
+                    Destroy(this.gameObject);
+                }
+            }
+            else
+            {
+                if (data.playerNumber == 0)
+                {
+                    GameManager.instance.p1Score = data.score;
+                }
+                if (data.playerNumber == 1)
+                {
+                    GameManager.instance.p2Score = data.score;
+                }
+                if (data.score > GameManager.instance.hiScore)
+                {
+                    GameManager.instance.hiScore = data.score;
+                    PlayerPrefs.SetInt("HighScore", data.score);
+                }
+                GameManager.instance.instantiatedPlayerTanks.Remove(this.gameObject);
+                Destroy(this.gameObject);
+            }
         }
     }
 }

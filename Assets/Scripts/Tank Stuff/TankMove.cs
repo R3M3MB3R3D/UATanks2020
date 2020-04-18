@@ -12,6 +12,8 @@ public class TankMove : MonoBehaviour
     private TankData data;
     private Transform tf;
     private CharacterController control;
+    public AudioClip tankMoveSound;
+    public AudioSource tankNoiseSource;
 
     void Awake()
     {
@@ -19,6 +21,7 @@ public class TankMove : MonoBehaviour
         data = GetComponent<TankData>();
         tf = GetComponent<Transform>();
         control = GetComponent<CharacterController>();
+        tankNoiseSource = GetComponent<AudioSource>();
     }
 
     public void Move(float speed)
@@ -26,7 +29,14 @@ public class TankMove : MonoBehaviour
         //Debug.Log("Moving");
         Vector3 speedVector = tf.forward * speed;
         control.SimpleMove(speedVector);
-        data.noiseLevel = 5;
+        //Debug.Log("Speed is " + speed + ".");
+
+        //Debug.Log("speed reached");
+        if (tankNoiseSource.isPlaying == false)
+        {
+            tankNoiseSource.clip = tankMoveSound;
+            tankNoiseSource.Play();
+        }
     }
 
     public void Rotate(float speed)
